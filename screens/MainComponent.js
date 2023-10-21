@@ -11,7 +11,7 @@ const DirectoryNavigator = () => {
             initialRouteName='Directory'
             screenOptions={{
                 headerStyle: {
-                    backgroundColor: '5637DD'
+                    backgroundColor: '#5637DD'
                 },
                 headerTintColor: '#fff'
             }}
