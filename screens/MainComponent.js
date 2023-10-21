@@ -1,5 +1,5 @@
 import { Platform, View } from 'react-native';
-import { Constants } from 'expo-constants';
+import  Constants  from 'expo-constants';
 import CampsiteInfoScreen from './CampsiteInfoScreen';
 import DirectoryScreen from './DirectoryScreen';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -24,7 +24,7 @@ const DirectoryNavigator = () => {
             <Stack.Screen 
                 name='CampsiteInfo'
                 component={CampsiteInfoScreen}
-                options={( route ) => ({
+                options={({ route }) => ({
                     title: route.params.campsite.name
                 })}
             />
