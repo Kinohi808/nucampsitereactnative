@@ -4,7 +4,8 @@ import {
     FlatList,
     Text,
     TouchableOpacity,
-    StyleSheet
+    StyleSheet,
+    Alert
 } from 'react-native';
 import { Avatar, ListItem } from 'react-native-elements';
 import Loading from '../components/LoadingComponent';
@@ -25,35 +26,56 @@ const FavoritesScreen = ({ navigation }) => {
                 <View style={styles.deleteView}>
                     <TouchableOpacity
                         style={styles.deleteTouchable}
-                        onPress={() => dispatch(toggleFavorite(campsite.id))}
-                    >
-                        <Text style={styles.deleteText}>Delete</Text>
-                    </TouchableOpacity>
-                </View>
-                <View>
-                    <ListItem
-                        onPress={() =>
-                            navigation.navigate('Directory', {
-                                screen: 'CampsiteInfo',
-                                params: { campsite }
-                            })
-                        }
-                    >
-                        <Avatar
-                            rounded
-                            source={{ uri: baseUrl + campsite.image }}
-                        />
-                        <ListItem.Content>
-                            <ListItem.Title>{campsite.name}</ListItem.Title>
-                            <ListItem.Subtitle>
-                                {campsite.description}
-                            </ListItem.Subtitle>
-                        </ListItem.Content>
-                    </ListItem>
-                </View>
-            </SwipeRow>
-        );
-    };
+                        onPress={() => Alert.alert('Delete Favorite?',
+                            'Are you sure you wish to delete the favorite campsite ' + campsite.name + '?',
+                            [
+                                {
+                                    text: 'Cancel',
+                                    onPress: () => 
+                                        console.log(
+                                            campsite.name + 'Not Deleted'
+                                        ),
+                                    style: 'cancel'
+                                },
+                                {
+                                    text: 'OK',
+                                    onPress: () => 
+                                    dispatch(
+                                        toggleFavorite(campsite.id)
+                                    )
+                                }
+                            ],
+                            { cancelable: false }
+                        )
+                    }
+                >
+                    <Text style={styles.deleteText}>Delete</Text>
+                </TouchableOpacity>
+            </View>
+            <View>
+                <ListItem
+                    onPress={() =>
+                        navigation.navigate('Directory', {
+                            screen: 'CampsiteInfo',
+                            params: { campsite }
+                        })
+                    }
+                >
+                    <Avatar
+                        rounded
+                        source={{ uri: baseUrl + campsite.image }}
+                    />
+                    <ListItem.Content>
+                        <ListItem.Title>{campsite.name}</ListItem.Title>
+                        <ListItem.Subtitle>
+                            {campsite.description}
+                        </ListItem.Subtitle>
+                    </ListItem.Content>
+                </ListItem>
+            </View>
+        </SwipeRow>
+    );
+};
 
     if (isLoading) {
         return <Loading />;
