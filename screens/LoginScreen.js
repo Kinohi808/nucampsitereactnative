@@ -113,6 +113,22 @@ const RegisterTab = () => {
     const [remember, setRemember] = useState(false);
     const [imageUrl, setImageUrl] = useState(baseUrl + 'images/logo.png');
 
+    const getImageFromGallery = async () => {
+        const galleryPermission = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+        if (galleryPermission.status === 'granted') {
+            const selectedImage = await ImagePicker.launchImageLibraryAsync({
+                allowsEditing: true,
+                aspect: [1, 1],
+            });
+        if (capturedImage.assets) {
+            console.log('Captured Image Details:', capturedImage.assets[0]);
+
+            const processedImageUrl = await processImage(captureImage.assets[0].uri)
+            }
+        }
+    };
+
     const handleRegister = () => {
         const userInfo = {
             username,
@@ -184,6 +200,7 @@ const RegisterTab = () => {
                         style={styles.image}
                     />
                     <Button title='Camera' onPress={getImageFromCamera} />
+                    <Button title='Gallery' onPress={getImageFromGallery} />
                 </View>
                 <Input
                     placeholder='Username'
